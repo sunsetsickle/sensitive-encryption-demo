@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.EmployeeMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Employee">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone" typeHandler="com.example.demo.handler.EncryptTypeHandler"/>
+        <result column="id_card" property="idCard" typeHandler="com.example.demo.handler.EncryptTypeHandler"/>
+        <result column="bank_card" property="bankCard" typeHandler="com.example.demo.handler.EncryptTypeHandler"/>
+        <result column="salary" property="salary"/>
+        <result column="department" property="department"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="BaseColumns">
+        id, name, phone, id_card, bank_card, salary, department, create_time, update_time
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_employee (name, phone, id_card, bank_card, salary, department)
+        VALUES (
+            #{name},
+            #{phone, typeHandler=com.example.demo.handler.EncryptTypeHandler},
+            #{idCard, typeHandler=com.example.demo.handler.EncryptTypeHandler},
+            #{bankCard, typeHandler=com.example.demo.handler.EncryptTypeHandler},
+            #{salary},
+            #{department}
+        )
+    </insert>
+
+    <update id="updateById">
+        UPDATE t_employee
+        SET
+            name = #{name},
+            phone = #{phone, typeHandler=com.example.demo.handler.EncryptTypeHandler},
+            id_card = #{idCard, typeHandler=com.example.demo.handler.EncryptTypeHandler},
+            bank_card = #{bankCard, typeHandler=com.example.demo.handler.EncryptTypeHandler},
+            salary = #{salary},
+            department = #{department}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM t_employee WHERE id = #{id}
+    </delete>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumns"/> FROM t_employee WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumns"/> FROM t_employee
+    </select>
+
+    <select id="selectByDepartment" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumns"/> FROM t_employee WHERE department LIKE CONCAT('%', #{department}, '%')
+    </select>
+
+    <select id="selectByIdCard" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumns"/> FROM t_employee
+        WHERE id_card = #{idCard, typeHandler=com.example.demo.handler.EncryptTypeHandler}
+    </select>
+
+</mapper>
