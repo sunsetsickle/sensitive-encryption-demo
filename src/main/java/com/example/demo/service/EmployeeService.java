@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Employee;
+import com.example.demo.vo.EmployeeRpVo;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface EmployeeService {
 
     Employee getById(Long id);
 
-    List<Employee> listAll();
+    List<EmployeeRpVo> listAll();
 
     List<Employee> searchByDepartment(String department);
 

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
+import com.example.demo.vo.EmployeeRpVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.List;
 
 /**
  * mybatis xml 测试
+ * @author liang
  */
 @Tag(name = "员工管理", description = "员工CRUD（XML Mapper + TypeHandler 加密）")
 @RestController
@@ -33,9 +35,9 @@ public class EmployeeController {
         return employeeService.getById(id);
     }
 
-    @Operation(summary = "查询全部员工")
+    @Operation(summary = "查询全部员工(脱敏)")
     @GetMapping("/list")
-    public List<Employee> list() {
+    public List<EmployeeRpVo> list() {
         return employeeService.listAll();
     }
 

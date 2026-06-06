@@ -1,5 +1,7 @@
-package com.example.demo.entity;
+package com.example.demo.vo;
 
+import com.example.demo.annotation.Sensitize;
+import com.example.demo.annotation.SensitizeRuleEnums;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -11,21 +13,25 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema(description = "员工实体")
-public class Employee {
+public class EmployeeRpVo {
 
     @Schema(description = "主键ID")
     private Long id;
 
     @Schema(description = "姓名")
+    @Sensitize(rule = SensitizeRuleEnums.CHINESE_NAME)
     private String name;
 
     @Schema(description = "手机号（入库自动加密）")
+    @Sensitize(rule = SensitizeRuleEnums.MOBILE_PHONE)
     private String phone;
 
     @Schema(description = "身份证号（入库自动加密）")
+    @Sensitize(rule = SensitizeRuleEnums.ID_CARD)
     private String idCard;
 
     @Schema(description = "银行卡号（入库自动加密）")
+    @Sensitize(rule = SensitizeRuleEnums.BANK_CARD)
     private String bankCard;
 
     @Schema(description = "薪资")

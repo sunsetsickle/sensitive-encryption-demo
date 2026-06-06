@@ -8,6 +8,10 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+# AES加密配置
+encrypt:
+  key: liang12345678910
+
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
